@@ -17,4 +17,16 @@
         $items = $data->items;
         return $items;
     }
+
+    function getItemById($id){
+        $itemList = getItems();
+        $itemQueried = "";
+        foreach($itemList as $item){
+            if($item->itemId == $id){
+                $itemQueried = $item;
+                break;
+            }
+        }
+        return $itemQueried;
+    }
 ?>
