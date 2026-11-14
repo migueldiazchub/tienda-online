@@ -2,7 +2,7 @@ services:
   php-apache:
     build:
       context: ./
-    container_name: juego-parejas
+    container_name: tienda-online
     restart: always
     ports:
       - 3000:80

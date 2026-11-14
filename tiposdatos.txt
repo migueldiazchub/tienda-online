@@ -1,0 +1,24 @@
+user {
+    id
+    username: string,
+    email: string,
+    password: string,
+    admin: bool
+    purchase_history: purchaseId[]
+}
+
+item {
+    id
+    name: string,
+    price: float,
+    quantity: int,
+    image_source: string
+}
+
+purchase {
+    id
+    user: userId,
+    date_requested: string,
+    date_confirmed: string,
+    items: itemId[]
+}
