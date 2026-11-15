@@ -42,6 +42,11 @@ main {
   min-height: 90vh;
 }
 
+#logout {
+  position: absolute;
+  bottom: 0;
+}
+
 /* Página tienda */
 #shop-content {
   width: 100%;
@@ -72,8 +77,6 @@ main {
 }
 
 /* Página artículo */
-#item-page {
-}
 
 #item-content {
   width: 50%;
@@ -137,7 +140,7 @@ main {
   align-content: center;
 }
 
-#form-login {
+.login-form {
   width: 20%;
   height: 50vh;
   margin: auto;
@@ -158,7 +161,15 @@ main {
   font-size: large;
 }
 
-#logout {
-  position: absolute;
-  bottom: 0;
+#login-type-switch {
+  width: 10rem;
+  height: 2rem;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+/* Clase para esconder */
+.hidden {
+  display: none;
 }

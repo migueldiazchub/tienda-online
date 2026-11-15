@@ -31,7 +31,7 @@
     </nav>
   </header>
   <main id="login-content">
-    <form id="form-login" action="/lib/user-auth.php" method="post">
+    <form id="auth-form" class="login-form" action="/lib/user-auth.php" method="post">
       <label class="login-label">
         Nombre de usuario:
         <input
@@ -59,6 +59,72 @@
         value="Iniciar sesión"
       />
     </form>
+    <form id="signup-form" class="login-form hidden" action="/lib/user-signup.php" method="post">
+    <input name="id" type="text" placeholder="id">  
+    <label class="login-label">
+        Nombre de usuario:
+        <input
+          class="login-input"
+          name="username"
+          type="text"
+          placeholder="Escoge tu nombre de usuario..."
+          required
+        />
+      </label>
+      <label class="login-label">
+        Correo electrónico: 
+        <input
+          class="login-input"
+          name="email"
+          type="text"
+          placeholder="Escribe tu correo electrónico..."
+          required
+        />
+      </label>
+      <label class="login-label">
+        Contraseña:
+        <input
+          class="login-input"
+          name="password"
+          type="password"
+          placeholder="Escribe tu contraseña..."
+          required
+        />
+      </label>
+      <label class="login-label">
+        Confirmar contraseña: 
+        <input
+          class="login-input"
+          type="password"
+          placeholder="Escribe tu contraseña de nuevo..."
+          required
+        />
+      </label>
+      <input
+        id="login-submit"
+        class="login-input"
+        type="submit"
+        value="Registrarse"
+      />
+    </form>
+    <button id="login-type-switch" value="signup" onclick="switchLoginType()">Registrarse</button>
   </main>
+  <!-- <script src="../lib/validate-client-login.js"></script> -->
+  <script>
+    function switchLoginType(){
+      const switchButton = document.getElementById("login-type-switch");
+      if(switchButton.value == "signup"){
+        document.getElementById("auth-form").classList.toggle("hidden");
+        document.getElementById("signup-form").classList.toggle("hidden");
+        switchButton.value = "login";
+        switchButton.textContent = "Iniciar sesión";
+      } else if(switchButton.value == "login"){
+        document.getElementById("auth-form").classList.toggle("hidden");
+        document.getElementById("signup-form").classList.toggle("hidden");
+        switchButton.value = "signup";
+        switchButton.textContent = "Registrarse";
+      }
+    }
+  </script>
 </body>
 </html>

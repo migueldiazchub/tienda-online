@@ -21,6 +21,11 @@
                 $userFound = true;
                 $_SESSION["userId"] = $user->userId;
                 $_SESSION["username"] = $user->username;
+                if($user->admin){
+                    $_SESSION["isAdmin"] = true;
+                } else {
+                    $_SESSION["isAdmin"] = false;
+                }
                 break;
             }
         }

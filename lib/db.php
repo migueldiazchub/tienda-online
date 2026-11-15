@@ -1,4 +1,20 @@
 <?php
+    class User {
+        public $userId;
+        public $username;
+        public $email;
+        public $password;
+        public $admin = false;
+        public $purchaseHistory = [];
+
+        function __construct($userId, $username, $email, $password){
+            $this->userId = $userId;
+            $this->username = $username;
+            $this->email = $email;
+            $this->password = $password;
+        }
+    }
+
     function getData(){
         $datafile = fopen("../assets/data.json", "r");
         $data = fread($datafile, filesize("../assets/data.json"));
@@ -28,5 +44,11 @@
             }
         }
         return $itemQueried;
+    }
+
+    function writeData($newData){
+        $datafile = fopen("../assets/data.json", "w");
+        fwrite($datafile, $newData);
+        fclose($datafile);
     }
 ?>
