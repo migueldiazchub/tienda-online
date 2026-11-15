@@ -3,6 +3,8 @@ services:
     build:
       context: ./
     container_name: tienda-online
+    env_file:
+      - .env
     restart: always
     ports:
       - 3000:80

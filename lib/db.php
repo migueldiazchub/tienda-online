@@ -1,4 +1,14 @@
 <?php
+    require "../vendor/autoload.php";
+
+    // Replace the placeholder with your Atlas connection string
+    $uri = getenv("MONGODB_URI");
+    $db = getenv("MONGODB_DB");
+
+    // Create a MongoDB client
+    $client = new MongoDB\Client($uri);
+
+
     function getData(){
         $datafile = fopen("../assets/data.json", "r");
         $data = fread($datafile, filesize("../assets/data.json"));
