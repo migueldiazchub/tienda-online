@@ -1,7 +1,6 @@
 <?php
-  session_start();
-
   require "../lib/db.php";
+  include "../lib/session-control.php";
 
   $itemList = getItems();
 ?>
@@ -29,8 +28,8 @@
         <a id="nav-link-cart" class="nav-link" href="/src/carrito.php"
           >Carrito</a
         >
-        <a id="nav-link-login" class="nav-link" href="/src/login.php"
-          >Iniciar sesión</a
+        <a id='nav-link-login' class='nav-link' href=<?php echo $navLoginHref ?>
+          ><?php echo $navLoginContent ?></a
         >
       </nav>
     </header>

@@ -1,6 +1,22 @@
 <?php
     require "db.php";
 
+    class User {
+        public $userId;
+        public $username;
+        public $email;
+        public $password;
+        public $admin = false;
+        public $purchaseHistory = [];
+
+        function __construct($userId, $username, $email, $password){
+            $this->userId = $userId;
+            $this->username = $username;
+            $this->email = $email;
+            $this->password = $password;
+        }
+    }
+
     function testInput($data) {
         if($data == NULL) {
             return "";
@@ -9,6 +25,13 @@
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
+    }
+
+    function clearSignupAttempt(){
+        unset($_POST["id"]);
+        unset($_POST["username"]);
+        unset($_POST["email"]);
+        unset($_POST["password"]);
     }
 
     try {
@@ -23,9 +46,11 @@
         $data->users[] = $newUser;
     
         writeData(json_encode($data));
-    
+
+        clearSignupAttempt();
         header("Location: /");
     } catch (Exception $e) {
+        clearSignupAttempt();
         echo $e;
     }
 ?>

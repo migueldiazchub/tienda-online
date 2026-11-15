@@ -1,5 +1,5 @@
 <?php
-  session_start();
+  include "../lib/session-control.php";
 ?>
 
 <!DOCTYPE html>
@@ -25,8 +25,8 @@
         <a id="nav-link-cart" class="nav-link" href="/src/carrito.php"
           >Carrito</a
         >
-        <a id="nav-link-login" class="nav-link" href="/src/login.php"
-          >Iniciar sesión</a
+        <a id='nav-link-login' class='nav-link' href=<?php echo $navLoginHref ?>
+          ><?php echo $navLoginContent ?></a
         >
       </nav>
     </header>
