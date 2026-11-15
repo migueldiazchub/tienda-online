@@ -48,11 +48,12 @@
     </header>
     <main id="inventory-content">
       <form action="../lib/inventory-management.php" method="post">
-        <input name="itemid" type="text" placeholder="id">
-        <input name="itemname" type="text" placeholder="name">
-        <input name="itemprice" type="text" placeholder="price">
-        <input name="itemquantity" type="text" placeholder="quantity">
-        <input name="imagesource" type="text" placeholder="imageSource">
+        <input name="adminAction" type="hidden" value="addItem">
+        <input name="itemid" type="text" placeholder="id" required>
+        <input name="itemname" type="text" placeholder="name" required>
+        <input name="itemprice" type="text" placeholder="price" required>
+        <input name="itemquantity" type="text" placeholder="quantity" required>
+        <input name="imagesource" type="text" placeholder="imageSource" required>
         <input type="submit">
       </form>
       <ul id=inventory-list>
@@ -71,27 +72,15 @@
                         <p class="inventory-item-quantity"><b>Stock:</b> ' . $item->quantity . '</p>
                     </div>
                     <div class="inventory-item-control">
-
+                        <form action="../lib/inventory-management.php" method="post">
+                            <input name="adminAction" type="hidden" value="deleteItem">
+                            <input name="itemid" type="hidden" value=' . $item->itemId . '>
+                            <input type="submit" value="Eliminar">
+                        </form>
                     </div>
                 </article>';
             }
         ?>
-<!--         
-        <article class="inventory-item">
-            <img
-                src='https:\/\/shop.critrole.eu\/cdn\/shop\/files\/cr_champion_dice_set_0020_percy_dice_flat_view.png?v=1756393390'
-                class="inventory-item-image"
-            />
-            <div class="inventory-item-details">
-                <p class="inventory-item-id"><b>ID: </b>i00</p>
-                <p class="inventory-item-title"><b>Nombre: </b>percival_dice_set</p>
-                <p class="inventory-item-price"><b>Precio: </b>25.99€</p>
-                <p class="inventory-item-quantity"><b>Stock: </b>5</p>
-            </div>
-            <div class="inventory-item-control">
-            </div>
-        </article>
--->
       </ul>
     </main>
   </body>

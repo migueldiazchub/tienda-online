@@ -51,9 +51,27 @@
         writeData(json_encode($data));
     }
 
+    function deleteItem(){
+        $id = $_POST["itemid"];
+        $data = getData();
+        for($i = 0; $i < count($data->items); $i++){
+            if($data->items[$i]->itemId == $id){
+                array_splice($data->items, $i, 1);
+                break;
+            }
+        }
+
+        writeData(json_encode($data));
+    }
+
     try {
-        addItem();
-        clearItemSubmission();
+        $action = $_POST["adminAction"];
+        if($action == "addItem"){
+            addItem();
+            clearItemSubmission();
+        } elseif ($action == "deleteItem"){
+            deleteItem(); 
+        }
         header("Location: /src/gestion-inventario.php");
     } catch (Exception $e) {
         clearItemSubmission();
