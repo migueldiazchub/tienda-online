@@ -3,11 +3,10 @@
 
     // Replace the placeholder with your Atlas connection string
     $uri = getenv("MONGODB_URI");
-    $db = getenv("MONGODB_DB");
-
+    
     // Create a MongoDB client
     $client = new MongoDB\Client($uri);
-
+    $db = "testdb";
 
     function getData(){
         $datafile = fopen("../assets/data.json", "r");
@@ -17,8 +16,9 @@
     }
 
     function getUsers(){
-        $data = getData();
-        $users = $data->users;
+        $client = $GLOBALS["client"];
+        $db = $GLOBALS["db"];
+        $users = $client->$db->users->find();
         return $users;
     }
 

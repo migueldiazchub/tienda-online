@@ -19,7 +19,7 @@
         foreach($userList as $user){
             if($user->username == $username && $user->password == $password){
                 $userFound = true;
-                $_SESSION["userId"] = $user->userId;
+                $_SESSION["userId"] = $user->_id;
                 $_SESSION["username"] = $user->username;
                 $_SESSION["shopCart"] = [];
                 if($user->admin){
@@ -30,7 +30,6 @@
                 break;
             }
         }
-
         return $userFound;
     }
 
@@ -56,6 +55,6 @@
 
 <script>
     function back(){
-        window.location.href = "/";
+        window.location.href = "/src/login.php";
     }
 </script>
