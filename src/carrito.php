@@ -1,5 +1,9 @@
 <?php
   include "../lib/session-control.php";
+  if(!$loggedIn){
+    http_response_code(401);
+    die();
+  }
 ?>
 
 <!DOCTYPE html>
@@ -22,8 +26,15 @@
       <nav>
         <a class="nav-link" href="/src/tienda.php">Tienda</a>
         <a class="nav-link" href="/src/contacto.php">Contacto</a>
-        <a id="nav-link-cart" class="nav-link" href="/src/carrito.php"
+        |
+        <a id="nav-link-cart" class=<?php echo $navClientClass ?> href="/src/carrito.php"
           >Carrito</a
+        >
+        <a id="nav-link-cart" class=<?php echo $navAdminClass ?> href="/src/gestion-inventario.php"
+          >Gestionar inventario</a
+        >
+        <a id="nav-link-cart" class=<?php echo $navAdminClass ?> href="/src/gestion-compras.php"
+          >Gestionar compras</a
         >
         <a id='nav-link-login' class='nav-link' href=<?php echo $navLoginHref ?>
           ><?php echo $navLoginContent ?></a

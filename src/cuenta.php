@@ -22,8 +22,15 @@
       <nav>
         <a class="nav-link" href="/src/tienda.php">Tienda</a>
         <a class="nav-link" href="/src/contacto.php">Contacto</a>
-        <a id="nav-link-cart" class="nav-link" href="/src/carrito.php"
+        |
+        <a id="nav-link-cart" class=<?php echo $navClientClass ?> href="/src/carrito.php"
           >Carrito</a
+        >
+        <a id="nav-link-cart" class=<?php echo $navAdminClass ?> href="/src/gestion-inventario.php"
+          >Gestionar inventario</a
+        >
+        <a id="nav-link-cart" class=<?php echo $navAdminClass ?> href="/src/gestion-compras.php"
+          >Gestionar compras</a
         >
         <a id='nav-link-login' class='nav-link' href=<?php echo $navLoginHref ?>
           ><?php echo $navLoginContent ?></a
@@ -34,5 +41,8 @@
         echo $_SESSION["userId"] , "<br>";
         echo $_SESSION["username"];
     ?>
+    <form id="logout" action="/lib/logout.php">
+      <input type="submit" value="logout">
+    </form>
 </body>
 </html>

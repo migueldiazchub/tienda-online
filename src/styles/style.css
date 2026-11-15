@@ -76,6 +76,37 @@ main {
   aspect-ratio: 1;
 }
 
+/* Página gestión inventario */
+#inventory-list {
+  width: 60%;
+  margin: auto;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.inventory-item {
+  height: 20vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.inventory-item-image {
+  width: auto;
+  height: 100%;
+  aspect-ratio: 1;
+}
+
+.inventory-item-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  font-size: x-large;
+}
+
 /* Página artículo */
 
 #item-content {

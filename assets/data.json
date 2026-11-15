@@ -45,12 +45,20 @@
       "price": 30,
       "quantity": 2,
       "imageSource": "https:\/\/shop.critrole.eu\/cdn\/shop\/files\/dh_hope_dear_oversized_d12_0001_dice-top-view.png?v=1782136371"
+    },
+    {
+      "itemId": "i04",
+      "name": "vox_machina_set",
+      "price": "14.99",
+      "quantity": "12",
+      "imageSource": "https:\/\/shop.critrole.eu\/cdn\/shop\/products\/ProductPhotos-Vox-Machina-d20-Dice-Set-White-Dice-1200x.jpg?v=1637171919"
     }
   ],
   "purchases": [
     {
       "purchaseId": "p00",
       "user": "c00",
+      "confirmed": true,
       "dateRequested": "2026-11-13T15:15:14+01:00",
       "dateConfirmed": "2026-11-14T15:15:14+01:00",
       "items": [
