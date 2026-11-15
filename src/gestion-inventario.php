@@ -49,7 +49,6 @@
     <main id="inventory-content">
       <form action="../lib/inventory-management.php" method="post">
         <input name="adminAction" type="hidden" value="addItem">
-        <input name="itemid" type="text" placeholder="id" required>
         <input name="itemname" type="text" placeholder="name" required>
         <input name="itemprice" type="text" placeholder="price" required>
         <input name="itemquantity" type="text" placeholder="quantity" required>
@@ -66,7 +65,7 @@
                         class="inventory-item-image"
                     />
                     <div class="inventory-item-details">
-                        <p class="inventory-item-id"><b>ID:</b> ' . $item->itemId . '</p>
+                        <p class="inventory-item-id"><b>ID:</b> ' . $item->_id . '</p>
                         <p class="inventory-item-title"><b>Nombre:</b> ' . $item->name . '</p>
                         <p class="inventory-item-price"><b>Precio:</b> ' . $item->price . '€</p>
                         <p class="inventory-item-quantity"><b>Stock:</b> ' . $item->quantity . '</p>
@@ -74,7 +73,7 @@
                     <div class="inventory-item-control">
                         <form action="../lib/inventory-management.php" method="post">
                             <input name="adminAction" type="hidden" value="deleteItem">
-                            <input name="itemid" type="hidden" value=' . $item->itemId . '>
+                            <input name="itemid" type="hidden" value=' . $item->_id . '>
                             <input type="submit" value="Eliminar">
                         </form>
                     </div>
