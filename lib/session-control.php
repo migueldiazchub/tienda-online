@@ -1,5 +1,15 @@
 <?php
     session_start();
+    
+    function logout(){
+      session_unset();
+      session_destroy();
+      header("Location: /");
+    }
+
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["logout"])){
+      logout();
+    }
 
     $loggedIn = false;
     $isAdmin = false;
@@ -18,7 +28,6 @@
     $navClientClass = "hidden";
     $navAdminClass = "hidden";
 
-    //si la sesión está iniciada, se muestran los enlaces correspondientes
     if($loggedIn){
       $navLoginHref = "/src/cuenta.php";
       $navLoginContent = $_SESSION["username"];

@@ -24,10 +24,10 @@
         foreach($itemList as $item){
             if($item->itemId == $id){
                 $itemQueried = $item;
-                break;
+                return $itemQueried;
             }
         }
-        return $itemQueried;
+        return null;
     }
 
     function writeData($newData){

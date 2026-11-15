@@ -85,22 +85,3 @@
     </main>
   </body>
 </html>
-<!-- 
-foreach($itemList as $item){
-  echo 
-    '<article class="inventory-item">
-        <img
-            src=' . $item->imageSource . '
-            class="inventory-item-image"
-        />
-        <div class="inventory-item-details">
-            <p class="inventory-item-id"><b>ID:</b> ' . $item->itemId . '</p>
-            <p class="inventory-item-title"><b>Nombre:</b> ' . $item->name . '</p>
-            <p class="inventory-item-price"><b>Precio:</b> ' . $item->price . '€</p>
-            <p class="inventory-item-quantity"><b>Stock:</b> ' . $item->quantity . '</p>
-        </div>
-        <div class="inventory-item-control">
-            
-        </div>
-    </article>';
-} -->

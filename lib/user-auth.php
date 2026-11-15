@@ -21,6 +21,7 @@
                 $userFound = true;
                 $_SESSION["userId"] = $user->userId;
                 $_SESSION["username"] = $user->username;
+                $_SESSION["shopCart"] = [];
                 if($user->admin){
                     $_SESSION["isAdmin"] = true;
                 } else {

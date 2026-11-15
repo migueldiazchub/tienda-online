@@ -57,7 +57,9 @@
           <p id="item-page-quantity">
             <?php echo $item->quantity ?>
           </p>
-          <form id="item-purchase-form" action="./tienda.php" method="post">
+          <form id="item-purchase-form" action="../lib/shopcart-management.php" method="post">
+            <input name="cartAction" type="hidden" value="addItem">
+            <input name="itemid" type="hidden" value=<?php echo $item->itemId ?> >
             <div id="item-quantity-control">
               <button
                 onclick="lowerQuantity()"
@@ -90,7 +92,7 @@
               >
                 Cancelar
               </button>
-              <button type="submit">Añadir al carrito</button>
+              <button id="add-to-cart-button" type="submit" disabled>Añadir al carrito</button>
             </div>
           </form>
         </section>
@@ -100,17 +102,31 @@
       //PENDING
       function setTotalPrice(){}
 
+      document.getElementById("quantity-input").addEventListener("change", function(){
+        console.log("change");
+        const button = document.getElementById("add-to-cart-button");
+        if(this.value == 0) {
+          button.disabled = true;
+        } else {
+          button.disabled = false;
+        }
+      })
+
       function lowerQuantity() {
         const quantity = document.getElementById("quantity-input");
         if (quantity.value > 0) {
-          quantity.value--;
+          if(--quantity.value == 0){
+            document.getElementById("add-to-cart-button").disabled = true;
+          }
         }
       }
 
       function raiseQuantity() {
         const quantity = document.getElementById("quantity-input");
         if(quantity.value < parseInt(quantity.max)){
-          quantity.value++;
+          if(++quantity.value != 0){
+            document.getElementById("add-to-cart-button").disabled = false;
+          }
         }
       }
 

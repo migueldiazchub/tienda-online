@@ -37,7 +37,8 @@
         >
       </nav>
     </header>
-    <form id="logout" action="/lib/logout.php">
+    <form id="logout" action="/lib/session-control.php" method="post">
+      <input name="logout" type="hidden" value="true">
       <input type="submit" value="logout">
     </form>
 </body>

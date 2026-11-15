@@ -1,9 +1,12 @@
 <?php
+  require "../lib/db.php";
   include "../lib/session-control.php";
   if(!$loggedIn){
     http_response_code(401);
     die();
   }
+
+  $cartItemList = $_SESSION["shopCart"];
 ?>
 
 <!DOCTYPE html>
@@ -41,5 +44,37 @@
         >
       </nav>
     </header>
+    <main id="inventory-content">
+      <ul id=inventory-list>
+        <?php
+            foreach($cartItemList as $cartItemId => $cartItemQuant){
+              $item = getItemById($cartItemId);
+              echo 
+                '<a class="inventory-item" href="./articulo.php?itemId=' . $item->itemId . '">
+                    <img
+                        src=' . $item->imageSource . '
+                        class="inventory-item-image"
+                    />
+                    <div class="inventory-item-details">
+                        <h2 class="inventory-item-title">' . $item->name . '</h2>
+                        <p class="inventory-item-price"><b>Precio total:</b> ' . $item->price * $cartItemQuant . '€</p>
+                        <p class="inventory-item-quantity"><b>Cantidad a comprar:</b> ' . $cartItemQuant . '</p>
+                    </div>
+                    <div class="inventory-item-control">
+                        <form action="../lib/shopcart-management.php" method="post">
+                            <input name="cartAction" type="hidden" value="deleteItem">
+                            <input name="itemid" type="hidden" value=' . $cartItemId . '>
+                            <input type="submit" value="Eliminar del carrito">
+                        </form>
+                    </div>
+                </a>';
+            }
+        ?>
+      </ul>
+      <form id="purchase-control">
+        <button type="submit">Confirmar compra</button>
+        <button type="submit">Cancelar</button>
+      </form>
+    </main>
 </body>
 </html>
