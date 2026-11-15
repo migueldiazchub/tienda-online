@@ -44,7 +44,7 @@
       <?php
         foreach($itemList as $item){
           echo 
-            '<a class="shop-item" href="./articulo.php?itemId=' . $item->itemId . '">
+            '<a class="shop-item" href="./articulo.php?itemId=' . $item->_id . '">
               <img
                 src=' . $item->imageSource . '
                 class="shop-item-image"

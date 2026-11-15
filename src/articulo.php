@@ -55,11 +55,11 @@
             Precio por unidad: <?php echo $item->price ?>€
           </p>
           <p id="item-page-quantity">
-            <?php echo $item->quantity ?>
+            Cantidad: <?php echo $item->quantity ?>
           </p>
           <form id="item-purchase-form" action="../lib/shopcart-management.php" method="post">
             <input name="cartAction" type="hidden" value="addItem">
-            <input name="itemid" type="hidden" value=<?php echo $item->itemId ?> >
+            <input name="itemid" type="hidden" value=<?php echo $item->_id ?> >
             <div id="item-quantity-control">
               <button
                 onclick="lowerQuantity()"
@@ -135,4 +135,5 @@
       }
     </script>
   </body>
-</html>
+</html> 
+

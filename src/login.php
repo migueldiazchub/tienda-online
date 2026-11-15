@@ -70,7 +70,6 @@
       />
     </form>
     <form id="signup-form" class="login-form hidden" action="/lib/user-signup.php" method="post">
-    <input name="id" type="text" placeholder="id">  
     <label class="login-label">
         Nombre de usuario:
         <input
