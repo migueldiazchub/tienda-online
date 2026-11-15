@@ -32,9 +32,7 @@
             "quantity" => $quant,
             "imageSource" => $src
         ];
-        $client = $GLOBALS["client"];
-        $db = $GLOBALS["db"];
-        $client->$db->items->insertOne($newItem);
+        insertItem($newItem);
     }
 
     function deleteItem(){
@@ -60,6 +58,4 @@
         clearItemSubmission();
         echo $e;
     }
-
-
 ?>

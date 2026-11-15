@@ -30,7 +30,7 @@
             "admin" => false,
             "purchaseHistory" => []
         ];
-        $client->$db->users->insertOne($newUser);
+        insertUser($newUser);
 
         clearSignupAttempt();
         header("Location: /");

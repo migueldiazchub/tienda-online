@@ -6,18 +6,17 @@
     $client = new MongoDB\Client($uri);
     $db = "testdb";
 
-    function getData(){
-        $datafile = fopen("../assets/data.json", "r");
-        $data = fread($datafile, filesize("../assets/data.json"));
-        fclose($datafile);
-        return json_decode($data);
-    }
-
     function getUsers(){
         $client = $GLOBALS["client"];
         $db = $GLOBALS["db"];
         $users = $client->$db->users->find();
         return $users;
+    }
+
+    function insertUser($newUser){
+        $client = $GLOBALS["client"];
+        $db = $GLOBALS["db"];
+        $client->$db->users->insertOne($newUser);
     }
 
     function getItems(){
@@ -36,5 +35,11 @@
         /** @disregard P1009 */
         $objectId = new MongoDB\BSON\ObjectId($id);
         return $client->$db->items->findOne(["_id" => $objectId]);
+    }
+
+    function insertItem($newItem){
+        $client = $GLOBALS["client"];
+        $db = $GLOBALS["db"];
+        $client->$db->items->insertOne($newItem);
     }
 ?>

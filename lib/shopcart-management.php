@@ -4,45 +4,48 @@
     require "db.php";
  
     function addToCart(){
-        $data = getData();
-
         $cart = $_SESSION["shopCart"];
-        $id = $_POST["itemid"];
         $quant = $_POST["quantity"];
 
-        foreach($data->items as $item){
-            if($item->itemId == $id){
-                if($quant <= $item->quantity){
-                    $item->quantity -= $quant;
-                    if(!isset($cart[$id])){
-                        $cart[$id] = $quant;
-                    } else {
-                        $cart[$id] += $quant;
-                    }
-                    writeData(json_encode($data));
-                    return $cart;
-                } else {
-                    throw new Exception("No se pueden añadir más unidades de las disponibles");
-                }
-            }
+        $item = getItemById($_POST["itemid"]);
+        if($quant > $item->quantity){
+            throw new Exception("No se pueden añadir más unidades de las disponibles");
+        } else {
+            $client = $GLOBALS["client"];
+            $db = $GLOBALS["db"];
+
+            $client->$db->items->updateOne(
+                ["_id" => $item->_id],
+                ['$set' => ["quantity" => ($item->quantity - $quant)]]
+            );
         }
+
+        $cartItem = [
+            "id" => (string) $item->_id,
+            "name" => $item->name,
+            "price" => $item->price,
+            "quantity" => $quant,
+            "imageSource" => $item->imageSource
+        ];
+        $cart[] = $cartItem;
+        return $cart;
     }
 
     function removeFromCart(){
-        $data = getData();
-
         $cart = $_SESSION["shopCart"];
-        $id = $_POST["itemid"];
-        $quant = $cart[$id];
+        $index = $_POST["index"];
+        $item = getItemById($cart[$index]["id"]);
 
-        foreach($data->items as $item){
-            if($item->itemId == $id){
-                $item->quantity += $quant;
-                unset($cart[$id]);
-                writeData(json_encode($data));
-                return $cart;
-            }
-        }
+        $client = $GLOBALS["client"];
+        $db = $GLOBALS["db"];
+        
+        $client->$db->items->updateOne(
+            ["_id" => $item->_id],
+            ['$set' => ["quantity" => ($item->quantity + $cart[$index]["quantity"])]]
+        );
+
+        array_splice($cart, $index, 1);
+        return $cart;
     }
 
     try {

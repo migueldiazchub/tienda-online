@@ -6,7 +6,7 @@
     die();
   }
 
-  $cartItemList = $_SESSION["shopCart"];
+  $shoppingCart = $_SESSION["shopCart"];
 ?>
 
 <!DOCTYPE html>
@@ -47,27 +47,27 @@
     <main id="inventory-content">
       <ul id=inventory-list>
         <?php
-            foreach($cartItemList as $cartItemId => $cartItemQuant){
-              $item = getItemById($cartItemId);
+            $index = 0;
+            foreach($shoppingCart as $item){
               echo 
-                '<a class="inventory-item" href="./articulo.php?itemId=' . $item->itemId . '">
+                '<article class="inventory-item">
                     <img
-                        src=' . $item->imageSource . '
+                        src=' . $item["imageSource"] . '
                         class="inventory-item-image"
                     />
                     <div class="inventory-item-details">
-                        <h2 class="inventory-item-title">' . $item->name . '</h2>
-                        <p class="inventory-item-price"><b>Precio total:</b> ' . $item->price * $cartItemQuant . '€</p>
-                        <p class="inventory-item-quantity"><b>Cantidad a comprar:</b> ' . $cartItemQuant . '</p>
+                        <h2 class="inventory-item-title">' . $item["name"] . '</h2>
+                        <p class="inventory-item-price"><b>Precio total:</b> ' . $item["price"] * $item["quantity"] . '€</p>
+                        <p class="inventory-item-quantity"><b>Cantidad a comprar:</b> ' . $item["quantity"] . '</p>
                     </div>
                     <div class="inventory-item-control">
                         <form action="../lib/shopcart-management.php" method="post">
                             <input name="cartAction" type="hidden" value="deleteItem">
-                            <input name="itemid" type="hidden" value=' . $cartItemId . '>
+                            <input name="index" type="hidden" value=' . $index++ . '>
                             <input type="submit" value="Eliminar del carrito">
                         </form>
                     </div>
-                </a>';
+                </article>';
             }
         ?>
       </ul>

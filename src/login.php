@@ -47,7 +47,7 @@
           name="username"
           type="text"
           placeholder="Escribe tu nombre de usuario..."
-          value="admin1"
+          value="client1"
           required
         />
       </label>
@@ -58,7 +58,7 @@
           name="password"
           type="password"
           placeholder="Escribe tu contraseña..."
-          value="asdfg"
+          value="qwerty"
           required
         />
       </label>
