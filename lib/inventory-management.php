@@ -35,6 +35,27 @@
         insertItem($newItem);
     }
 
+    function updateStock(){
+        $id = $_POST["itemid"];
+        $item = getItemById($id);
+        $quant = $_POST["stockquantity"];
+
+        $client = $GLOBALS["client"];
+        $db = $GLOBALS["db"];
+
+        if($item->quantity + $quant < 0){
+            $client->$db->items->updateOne(
+                ["_id" => $item->_id],
+                ['$set' => ["quantity" => 0]]
+            );
+        } else {
+            $client->$db->items->updateOne(
+                ["_id" => $item->_id],
+                ['$set' => ["quantity" => ($item->quantity + $quant)]]
+            );
+        }
+    }
+
     function deleteItem(){
         $id = $_POST["itemid"];
 
@@ -50,7 +71,9 @@
         if($action == "addItem"){
             addItem();
             clearItemSubmission();
-        } elseif ($action == "deleteItem"){
+        } elseif($action == "updateStock"){
+            updateStock();
+        } elseif($action == "deleteItem"){
             deleteItem(); 
         }
         header("Location: /src/gestion-inventario.php");

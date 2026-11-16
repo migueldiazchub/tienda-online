@@ -64,17 +64,49 @@
                         src=' . $item->imageSource . '
                         class="inventory-item-image"
                     />
-                    <div class="inventory-item-details">
+                    <section class="inventory-item-details">
                         <p class="inventory-item-id"><b>ID:</b> ' . $item->_id . '</p>
                         <p class="inventory-item-title"><b>Nombre:</b> ' . $item->name . '</p>
                         <p class="inventory-item-price"><b>Precio:</b> ' . $item->price . '€</p>
                         <p class="inventory-item-quantity"><b>Stock:</b> ' . $item->quantity . '</p>
-                    </div>
-                    <div class="inventory-item-control">
+                    </section>
+                    <section class="inventory-item-control">
+                        <button class="switch-to-stock-control">
+                            Modificar stock
+                        </buton>
                         <button class="action-delete-from-inventory">
                             Eliminar
                         </buton>
-                    </div>
+                    </section>
+                    <section class="item-stock-control hidden">
+                        <div>
+                          <button
+                            class="stock-lower-button"
+                          >
+                            -
+                          </button>
+                            <input
+                              class="stock-change"
+                              name="stockquantity"
+                              type="number"
+                              value="0"
+                              readonly
+                            />
+                          <button
+                            class="stock-raise-button"
+                          >
+                            +
+                          </button>
+                        </div>
+                        <div class="stock-change-confirmation-control">
+                          <button
+                            class="action-stock-change-cancel"
+                          >
+                            Cancelar
+                          </button>
+                          <button class="action-stock-change-confirm">Modificar stock</button>
+                        </div>
+                    </section>
                 </article>';
             }
         ?>
