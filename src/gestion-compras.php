@@ -53,6 +53,7 @@
               $userData = getUserById($purchase->user_id);
 
               $itemList = "";
+              $priceTotal = 0;
               foreach($purchase->items as $item){
                       $itemData = getItemById($item->item_id);
                       $itemList = $itemList .
@@ -60,26 +61,23 @@
                           <p><b>Artículo: </b>' . $itemData->name . '</p>
                           <p><b>Cantidad: </b>' . $item->quantity . '</p>
                         </li>';
+                        $priceTotal += $itemData->price * $item->quantity;
                     }
 
               echo 
-                '<article class="pending-purchase">
+                '<article id=' . $purchase->_id . ' class="pending-purchase">
                   <p><b>Usuario: </b>' . $userData->username . '</p>
                   <time><b>Fecha: </b>' . $purchase->dateRequested . '</time>
                   <ul>' . 
                     $itemList
                   . '</ul>
-                  <p><b>Precio total: </b>€</p>
-                  <form action="../lib/purchase-management.php" method="post">
-                    <input name="adminAction" type="hidden" value="approvePurchase">
-                    <input name="purchaseId" type="hidden" value=' . $purchase->_id . '>
-                    <input type="submit" value="Aprobar compra">
-                  </form>
-                  <form action="../lib/purchase-management.php" method="post">
-                    <input name="adminAction" type="hidden" value="rejectPurchase">
-                    <input name="purchaseId" type="hidden" value=' . $purchase->_id . '>
-                    <input type="submit" value="Rechazar compra">
-                  </form>
+                  <p><b>Precio total: </b>' . $priceTotal . '€</p>
+                  <button class="action-approve-purchase">
+                    Aprobar compra
+                  </button>
+                  <button class="action-reject-purchase">
+                    Rechazar compra
+                  </button>
                 </article>';
             }
         ?>
@@ -98,6 +96,7 @@
               }
 
               $itemList = "";
+              $priceTotal = 0;
               foreach($purchase->items as $item){
                       $itemData = getItemById($item->item_id);
                       $itemList = $itemList .
@@ -105,6 +104,7 @@
                           <p><b>Artículo: </b>' . $itemData->name . '</p>
                           <p><b>Cantidad: </b>' . $item->quantity . '</p>
                         </li>';
+                        $priceTotal += $itemData->price * $item->quantity;
                     }
 
               echo 
@@ -115,11 +115,12 @@
                   <ul>' . 
                     $itemList
                   . '</ul>
-                  <p><b>Precio total: </b>€</p>
+                  <p><b>Precio total: </b>' . $priceTotal . '€</p>
                   <p><b>Estado: </b>' . $resolveState . '</p>
                 </article>';
             }
         ?>
     </ul>
+    <script src="./scripts/gestion-compras.js"></script>
 </body>
 </html>

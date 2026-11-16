@@ -50,7 +50,7 @@
             $index = 0;
             foreach($shoppingCart as $item){
               echo 
-                '<a class="inventory-item" href="./articulo.php?itemId=' . $item["id"] . '">
+                '<article class="inventory-item">
                     <img
                         src=' . $item["imageSource"] . '
                         class="inventory-item-image"
@@ -61,24 +61,23 @@
                         <p class="inventory-item-quantity"><b>Cantidad a comprar:</b> ' . $item["quantity"] . '</p>
                     </div>
                     <div class="inventory-item-control">
-                        <form action="../lib/shopcart-management.php" method="post">
-                            <input name="cartAction" type="hidden" value="deleteItem">
-                            <input name="index" type="hidden" value=' . $index++ . '>
-                            <input type="submit" value="Eliminar del carrito">
-                        </form>
+                        <button id=' . $index++ . ' class="action-delete-from-cart">
+                            Eliminar del carrito
+                        </button>
                     </div>
-                </a>';
+                </article>';
             }
         ?>
       </ul>
-      <form id="purchase-confirm" action="../lib/shopcart-management.php" method="post">
-        <input name="cartAction" type="hidden" value="requestPurchase">
-        <input type="submit" value="Confirmar compra">
-      </form>
-      <form id="purchase-cancel" action="../lib/shopcart-management.php" method="post">
-        <input name="cartAction" type="hidden" value="cancelPurchase">
-        <input type="submit" value="Cancelar">
-      </form>
+      <button id="action-confirm-purchase">
+        Confirmar compra
+      </button>
+      <button id="action-cancel-purchase">
+        Cancelar
+      </button>
     </main>
+    <script src="./scripts/carrito.js"></script>
 </body>
 </html>
+
+<!-- href="./articulo.php?itemId=' . $item["id"] . ' -->

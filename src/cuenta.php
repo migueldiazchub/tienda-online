@@ -3,7 +3,7 @@
   include "../lib/session-control.php";
 
   $userIdString = (string) $_SESSION["userId"];
-  $purchaseHistory = getUserPurchases($userIdString);
+  $purchaseHistory = null;
 ?>
 
 <!DOCTYPE html>
@@ -47,40 +47,50 @@
     ?>
     <ul id=purchase-history>
         <?php
-            foreach($purchaseHistory as $purchase){
-              $state = "";
-              if($purchase->state == "pending"){
-                $state = "Pendiente";
-              } elseif($purchase->state == "confirmed"){
-                $state = "Confirmada";
-              } elseif($purchase->state == "rejected"){
-                $state = "Rechazada";
-              }
-              $itemList = "";
-              foreach($purchase->items as $item){
-                      $itemData = getItemById($item->item_id);
-                      $itemList = $itemList .
-                        '<li>
-                          <p><b>Artículo: </b>' . $itemData->name . '</p>
-                          <p><b>Cantidad: </b>' . $item->quantity . '</p>
-                        </li>';
-                    }
+            if(!$isAdmin){
+              $purchaseHistory = getUserPurchases($userIdString);
+              foreach($purchaseHistory as $purchase){                
+                $state = "";
+                $dateInfo = "";
+                $dateAsked = "dateResolved";
+                if($purchase->state == "pending"){
+                  $state = "Pendiente";
+                  $dateInfo = " de petición";
+                  $dateAsked = "dateRequested";
+                } elseif($purchase->state == "confirmed"){
+                  $state = "Confirmada";
+                  $dateInfo = " de confirmación";
+                } elseif($purchase->state == "rejected"){
+                  $state = "Rechazada";
+                  $dateInfo = " de rechazo";
+                }
 
-              echo 
-                '<article class="pending-purchase">
-                  <p><b>Estado: </b>' . $state . '</p>
-                  <time><b>Fecha: </b>' . $purchase->dateRequested . '</time>
-                  <ul>' . 
-                    $itemList
-                  . '</ul>
-                  <p><b>Precio total: </b>€</p>
-                </article>';
+                $itemList = "";
+                $priceTotal = 0;
+                foreach($purchase->items as $item){
+                        $itemData = getItemById($item->item_id);
+                        $itemList = $itemList .
+                          '<li>
+                            <p><b>Artículo: </b>' . $itemData->name . '</p>
+                            <p><b>Cantidad: </b>' . $item->quantity . '</p>
+                          </li>';
+                        $priceTotal += $itemData->price * $item->quantity;
+                      }
+
+                echo 
+                  '<article class="pending-purchase">
+                    <p><b>Estado: </b>' . $state . '</p>
+                    <time><b>Fecha' . $dateInfo . ': </b>' . $purchase->dateRequested . '</time>
+                    <ul>' . 
+                      $itemList
+                    . '</ul>
+                    <p><b>Precio total: </b>' . $priceTotal . '€</p>
+                  </article>';
+              }
             }
         ?>        
     </ul>
-    <form id="logout" action="/lib/session-control.php" method="post">
-      <input name="logout" type="hidden" value="true">
-      <input type="submit" value="logout">
-    </form>
+    <button id="action-logout">Logout</button>
+    <script src="./scripts/cuenta.js"></script>
 </body>
 </html>

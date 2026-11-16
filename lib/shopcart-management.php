@@ -27,6 +27,14 @@
             "quantity" => $quant,
             "imageSource" => $item->imageSource
         ];
+        
+        for($i = 0; $i < count($cart); $i++){
+            if($cart[$i]["id"] == $cartItem["id"]){
+                $cartItem["quantity"] += $cart[$i]["quantity"];
+                array_splice($cart, $i, 1);
+            }
+        }
+
         $cart[] = $cartItem;
         return $cart;
     }

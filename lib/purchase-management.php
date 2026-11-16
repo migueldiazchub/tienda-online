@@ -9,7 +9,10 @@
         $db = $GLOBALS["db"];
         $client->$db->purchases->updateOne(
             ["_id" => $purchase->_id],
-            ['$set' => ["state" => "confirmed"]]
+            ['$set' => [
+                "state" => "confirmed",
+                "dateResolved" => date("c")
+            ]]
         );
     }
 
@@ -29,7 +32,10 @@
     
         $client->$db->purchases->updateOne(
             ["_id" => $purchase->_id],
-            ['$set' => ["state" => "rejected"]]
+            ['$set' => [
+                "state" => "rejected",
+                "dateResolved" => date("c")
+            ]]
         );
     }
 

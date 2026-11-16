@@ -41,13 +41,11 @@
     <form id="auth-form" class="login-form" action="/lib/user-auth.php" method="post">
       <label class="login-label">
         Nombre de usuario:
-        <!-- QUITAR VALORES POR DEFECTO, ESTÁN PARA ENTRAR RÁPIDO -->
         <input
           class="login-input"
           name="username"
           type="text"
           placeholder="Escribe tu nombre de usuario..."
-          value="admin1"
           required
         />
       </label>
@@ -58,7 +56,6 @@
           name="password"
           type="password"
           placeholder="Escribe tu contraseña..."
-          value="asdfg"
           required
         />
       </label>

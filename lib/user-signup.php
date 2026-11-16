@@ -1,5 +1,6 @@
 <?php
     require "db.php";
+    echo "hello";
 
     function testInput($data) {
         if($data == NULL) {

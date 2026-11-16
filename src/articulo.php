@@ -57,83 +57,43 @@
           <p id="item-page-quantity">
             Cantidad: <?php echo $item->quantity ?>
           </p>
-          <form id="item-purchase-form" action="../lib/shopcart-management.php" method="post">
-            <input name="cartAction" type="hidden" value="addItem">
-            <input name="itemid" type="hidden" value=<?php echo $item->_id ?> >
+          <div id="item-purchase-control" action="../lib/shopcart-management.php" method="post">
             <div id="item-quantity-control">
               <button
-                onclick="lowerQuantity()"
+                id="item-quantity-lower"
                 class="quantity-change-button"
-                type="button"
               >
                 -
               </button>
-              <input
-                id="quantity-input"
-                name="quantity"
-                type="number"
-                value="0"
-                min="0"
-                max=<?php echo $item->quantity ?>
-                readonly
-              />
+                <input
+                  id="quantity-input"
+                  name="quantity"
+                  type="number"
+                  value="0"
+                  min="0"
+                  max=<?php echo $item->quantity ?>
+                  readonly
+                />
               <button
-                onclick="raiseQuantity()"
+                id="item-quantity-raise"
                 class="quantity-change-button"
-                type="button"
               >
                 +
               </button>
             </div>
             <div id="item-purchase-control">
               <button
-                type="button"
-                onclick="cancel()"
+                id="action-cancel-item"
               >
                 Cancelar
               </button>
-              <button id="add-to-cart-button" type="submit" disabled>Añadir al carrito</button>
+              <button id="action-add-to-cart" disabled>Añadir al carrito</button>
             </div>
-          </form>
+          </div>
         </section>
       </section>
     </main>
-    <script>
-      //PENDING
-      function setTotalPrice(){}
-
-      document.getElementById("quantity-input").addEventListener("change", function(){
-        console.log("change");
-        const button = document.getElementById("add-to-cart-button");
-        if(this.value == 0) {
-          button.disabled = true;
-        } else {
-          button.disabled = false;
-        }
-      })
-
-      function lowerQuantity() {
-        const quantity = document.getElementById("quantity-input");
-        if (quantity.value > 0) {
-          if(--quantity.value == 0){
-            document.getElementById("add-to-cart-button").disabled = true;
-          }
-        }
-      }
-
-      function raiseQuantity() {
-        const quantity = document.getElementById("quantity-input");
-        if(quantity.value < parseInt(quantity.max)){
-          if(++quantity.value != 0){
-            document.getElementById("add-to-cart-button").disabled = false;
-          }
-        }
-      }
-
-      function cancel(){
-        window.location.href = "./tienda.php";
-      }
-    </script>
+    <script src="./scripts/articulo.js"></script>
   </body>
 </html> 
 

@@ -59,7 +59,7 @@
         <?php
             foreach($itemList as $item){
               echo 
-                '<article class="inventory-item">
+                '<article id=' . $item->_id . ' class="inventory-item">
                     <img
                         src=' . $item->imageSource . '
                         class="inventory-item-image"
@@ -71,16 +71,15 @@
                         <p class="inventory-item-quantity"><b>Stock:</b> ' . $item->quantity . '</p>
                     </div>
                     <div class="inventory-item-control">
-                        <form action="../lib/inventory-management.php" method="post">
-                            <input name="adminAction" type="hidden" value="deleteItem">
-                            <input name="itemid" type="hidden" value=' . $item->_id . '>
-                            <input type="submit" value="Eliminar">
-                        </form>
+                        <button class="action-delete-from-inventory">
+                            Eliminar
+                        </buton>
                     </div>
                 </article>';
             }
         ?>
       </ul>
     </main>
+    <script src="./scripts/gestion-inventario.js"></script>
   </body>
 </html>
