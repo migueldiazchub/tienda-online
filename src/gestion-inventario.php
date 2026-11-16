@@ -25,8 +25,10 @@
   </head>
   <body>
     <header>
-      <figure>
-        <a class="nav-link" href="/">Inicio</a>
+      <figure id="logo">
+        <a class="nav-link" href="/">
+          <img id="logo-img" src="https://shop.critrole.eu/cdn/shop/files/CriticalRole_Logo_Black512x512_256x256_crop_center_c784cf6c-91ad-4f45-99a1-09a11d375e33.png?height=136&v=1641330409">
+        </a>
       </figure>
       <nav>
         <a class="nav-link" href="/src/tienda.php">Tienda</a>
@@ -47,30 +49,45 @@
       </nav>
     </header>
     <main id="inventory-content">
-      <form action="../lib/inventory-management.php" method="post">
+      <form id="inventory-addition-form" action="../lib/inventory-management.php" method="post">
+        <h2 id="inventory-addition-title">Añadir artículo: </h2>
         <input name="adminAction" type="hidden" value="addItem">
-        <input name="itemname" type="text" placeholder="name" required>
-        <input name="itemprice" type="text" placeholder="price" required>
-        <input name="itemquantity" type="text" placeholder="quantity" required>
-        <input name="imagesource" type="text" placeholder="imageSource" required>
-        <input type="submit">
+        <label class="inventory-addition-label">
+          Nombre del artículo
+          <input class="inventory-addition-input" name="itemname" type="text" placeholder="nombre" required>
+        </label>
+        <label class="inventory-addition-label">
+          Precio del artículo
+          <input class="inventory-addition-input" name="itemprice" type="text" placeholder="precio" required>
+        </label>
+        <label class="inventory-addition-label">
+          Cantidad a añadir
+          <input class="inventory-addition-input" name="itemquantity" type="text" placeholder="stock" required>
+        </label>
+        <label class="inventory-addition-label">
+          URL de la imagen
+          <input class="inventory-addition-input" name="imagesource" type="text" placeholder="url de imagen" required>
+        </label>
+        <input id="inventory-addition-submit" class="inventory-addition-input" type="submit" value="Añadir artículo">
       </form>
       <ul id=inventory-list>
         <?php
             foreach($itemList as $item){
               echo 
                 '<article id=' . $item->_id . ' class="inventory-item">
-                    <img
-                        src=' . $item->imageSource . '
-                        class="inventory-item-image"
-                    />
-                    <section class="inventory-item-details">
-                        <p class="inventory-item-id"><b>ID:</b> ' . $item->_id . '</p>
-                        <p class="inventory-item-title"><b>Nombre:</b> ' . $item->name . '</p>
-                        <p class="inventory-item-price"><b>Precio:</b> ' . $item->price . '€</p>
-                        <p class="inventory-item-quantity"><b>Stock:</b> ' . $item->quantity . '</p>
+                    <section class="inventory-item-info">
+                      <img
+                          src=' . $item->imageSource . '
+                          class="inventory-item-image"
+                      />
+                      <section class="inventory-item-details">
+                          <p class="inventory-item-id"><b>ID:</b> ' . $item->_id . '</p>
+                          <p class="inventory-item-title"><b>Nombre:</b> ' . $item->name . '</p>
+                          <p class="inventory-item-price"><b>Precio:</b> ' . $item->price . '€</p>
+                          <p class="inventory-item-quantity"><b>Stock:</b> ' . $item->quantity . '</p>
+                      </section>
                     </section>
-                    <section class="inventory-item-control">
+                    <section class="inventory-control inventory-item-control">
                         <button class="switch-to-stock-control">
                             Modificar stock
                         </buton>
@@ -78,8 +95,8 @@
                             Eliminar
                         </buton>
                     </section>
-                    <section class="item-stock-control hidden">
-                        <div>
+                    <section class="inventory-control item-stock-control hidden">
+                        <div class="item-stock-quantity-control">
                           <button
                             class="stock-lower-button"
                           >

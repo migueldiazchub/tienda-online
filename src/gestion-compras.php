@@ -26,8 +26,10 @@
 </head>
 <body>
     <header>
-      <figure>
-        <a class="nav-link" href="/">Inicio</a>
+      <figure id="logo">
+        <a class="nav-link" href="/">
+          <img id="logo-img" src="https://shop.critrole.eu/cdn/shop/files/CriticalRole_Logo_Black512x512_256x256_crop_center_c784cf6c-91ad-4f45-99a1-09a11d375e33.png?height=136&v=1641330409">
+        </a>
       </figure>
       <nav>
         <a class="nav-link" href="/src/tienda.php">Tienda</a>
@@ -47,80 +49,87 @@
         >
       </nav>
     </header>
-    <ul id=pending-purchase-list>
-        <?php
-            foreach($pendingPurchases as $purchase){
-              $userData = getUserById($purchase->user_id);
+    <main id="purchases-content">
+      <ul id="pending-purchase-list" class="purchase-list">
+          <?php
+              foreach($pendingPurchases as $purchase){
+                $userData = getUserById($purchase->user_id);
 
-              $itemList = "";
-              $priceTotal = 0;
-              foreach($purchase->items as $item){
-                      $itemData = getItemById($item->item_id);
-                      $itemList = $itemList .
-                        '<li>
-                          <p><b>Artículo: </b>' . $itemData->name . '</p>
-                          <p><b>Cantidad: </b>' . $item->quantity . '</p>
-                        </li>';
-                        $priceTotal += $itemData->price * $item->quantity;
-                    }
+                $itemList = "";
+                $priceTotal = 0;
+                foreach($purchase->items as $item){
+                        $itemData = getItemById($item->item_id);
+                        $itemList = $itemList .
+                          '<li>
+                            <p><b>Artículo: </b>' . $itemData->name . '</p>
+                            <p><b>Cantidad: </b>' . $item->quantity . '</p>
+                          </li>';
+                          $priceTotal += $itemData->price * $item->quantity;
+                      }
 
-              echo 
-                '<article id=' . $purchase->_id . ' class="pending-purchase">
-                  <p><b>Usuario: </b>' . $userData->username . '</p>
-                  <time><b>Fecha: </b>' . $purchase->dateRequested . '</time>
-                  <ul>' . 
-                    $itemList
-                  . '</ul>
-                  <p><b>Precio total: </b>' . $priceTotal . '€</p>
-                  <button class="action-approve-purchase">
-                    Aprobar compra
-                  </button>
-                  <button class="action-reject-purchase">
-                    Rechazar compra
-                  </button>
-                </article>';
-            }
-        ?>
-    </ul>
-    <hr />
-    <ul id=resolved-purchase-list>
-        <?php
-            foreach($resolvedPurchases as $purchase){
-              $userData = getUserById($purchase->user_id);
-
-              $resolveState = "";
-              if($purchase->state == "confirmed"){
-                $resolveState = "Confirmada";
-              } elseif($purchase->state == "rejected"){
-                $resolveState = "Rechazada";
+                echo 
+                  '<article id=' . $purchase->_id . ' class="pending-purchase">
+                    <section class="purchase-info">
+                      <p><b>Usuario: </b>' . $userData->username . '</p>
+                      <time><b>Fecha: </b>' . $purchase->dateRequested . '</time>
+                      <ul>' . 
+                        $itemList
+                      . '</ul>
+                      <p><b>Precio total: </b>' . $priceTotal . '€</p>
+                    </section>
+                    <section class="purchase-actions">
+                      <button class="action-approve-purchase purchase-action">
+                        Aprobar compra
+                      </button>
+                      <button class="action-reject-purchase purchase-action">
+                        Rechazar compra
+                      </button>
+                    </section>
+                  </article>';
               }
+          ?>
+      </ul>
+      <hr class="separator" />
+      <ul id="resolved-purchase-list" class="purchase-list">
+          <?php
+              foreach($resolvedPurchases as $purchase){
+                $userData = getUserById($purchase->user_id);
 
-              $itemList = "";
-              $priceTotal = 0;
-              foreach($purchase->items as $item){
-                      $itemData = getItemById($item->item_id);
-                      $itemList = $itemList .
-                        '<li>
-                          <p><b>Artículo: </b>' . $itemData->name . '</p>
-                          <p><b>Cantidad: </b>' . $item->quantity . '</p>
-                        </li>';
-                        $priceTotal += $itemData->price * $item->quantity;
-                    }
+                $resolveState = "";
+                if($purchase->state == "confirmed"){
+                  $resolveState = "Confirmada";
+                } elseif($purchase->state == "rejected"){
+                  $resolveState = "Rechazada";
+                }
 
-              echo 
-                '<article class="pending-purchase">
-                  <p><b>Usuario: </b>' . $userData->username . '</p>
-                  <time><b>Fecha de petición: </b>' . $purchase->dateRequested . '</time>
-                  <time><b>Fecha de resolución: </b>' . $purchase->dateResolved . '</time>
-                  <ul>' . 
-                    $itemList
-                  . '</ul>
-                  <p><b>Precio total: </b>' . $priceTotal . '€</p>
-                  <p><b>Estado: </b>' . $resolveState . '</p>
-                </article>';
-            }
-        ?>
-    </ul>
+                $itemList = "";
+                $priceTotal = 0;
+                foreach($purchase->items as $item){
+                        $itemData = getItemById($item->item_id);
+                        $itemList = $itemList .
+                          '<li>
+                            <p><b>Artículo: </b>' . $itemData->name . '</p>
+                            <p><b>Cantidad: </b>' . $item->quantity . '</p>
+                          </li>';
+                          $priceTotal += $itemData->price * $item->quantity;
+                      }
+
+                echo 
+                  '<article class="purchase-info">
+                    <p><b>Usuario: </b>' . $userData->username . '</p>
+                    <time><b>Fecha de petición: </b>' . $purchase->dateRequested . '</time>
+                    |
+                    <time><b>Fecha de resolución: </b>' . $purchase->dateResolved . '</time>
+                    <ul>' . 
+                      $itemList
+                    . '</ul>
+                    <p><b>Precio total: </b>' . $priceTotal . '€</p>
+                    <p><b>Estado: </b>' . $resolveState . '</p>
+                  </article>';
+              }
+          ?>
+      </ul>
+    </main>
     <script src="./scripts/gestion-compras.js"></script>
 </body>
 </html>
