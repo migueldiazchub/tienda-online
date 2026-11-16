@@ -51,13 +51,14 @@
     {
       "purchaseId": "p00",
       "user": "c00",
-      "confirmed": true,
+      "state": "confirmed",
       "dateRequested": "2026-11-13T15:15:14+01:00",
-      "dateConfirmed": "2026-11-14T15:15:14+01:00",
+      "dateResolved": "2026-11-14T15:15:14+01:00",
       "items": [
         { "itemId": "i00", "quantity": 1 },
         { "itemId": "i01", "quantity": 2 }
-      ]
+      ],
+      "priceTotal": 50
     }
   ]
 }

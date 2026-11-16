@@ -31,9 +31,8 @@
         return $cart;
     }
 
-    function removeFromCart(){
+    function removeFromCart($index){
         $cart = $_SESSION["shopCart"];
-        $index = $_POST["index"];
         $item = getItemById($cart[$index]["id"]);
 
         $client = $GLOBALS["client"];
@@ -48,12 +47,59 @@
         return $cart;
     }
 
+    function removeAll(){
+        $cart = $_SESSION["shopCart"];
+        foreach($cart as $cartItem){
+            $item = getItemById($cartItem["id"]);
+
+            $client = $GLOBALS["client"];
+            $db = $GLOBALS["db"];
+
+            $client->$db->items->updateOne(
+                ["_id" => $item->_id],
+                ['$set' => ["quantity" => ($item->quantity + $cartItem["quantity"])]]
+            );
+        }
+        $cart = [];
+        return $cart;
+    }
+
+    function requestPurchase(){
+        $cart = $_SESSION["shopCart"];
+        $userIdString = (string) $_SESSION["userId"];
+        $newPurchase = [
+            "user_id" => $userIdString,
+            "state" => "pending",
+            "dateRequested" => date("c"),
+            "dateResolved" => "",
+            "items" => [],
+            "priceTotal" => 0
+        ];
+        foreach($cart as $item){
+            $newPurchase["items"][] = [
+                "item_id" => $item["id"],
+                "quantity" => $item["quantity"]
+            ];
+            $newPurchase["priceTotal"] += $item["price"];
+        }
+        createPurchaseRequest($newPurchase);
+
+        $cart = [];
+        return $cart;
+    }
+
     try {
         if($_POST["cartAction"] == "addItem"){
             $cart = addToCart();
             $_SESSION["shopCart"] = $cart;
         } elseif($_POST["cartAction"] == "deleteItem"){
-            $cart = removeFromCart();
+            $cart = removeFromCart($_POST["index"]);
+            $_SESSION["shopCart"] = $cart;
+        } elseif($_POST["cartAction"] == "cancelPurchase"){
+            $cart = removeAll();
+            $_SESSION["shopCart"] = $cart;
+        } elseif($_POST["cartAction"] == "requestPurchase"){
+            $cart = requestPurchase();
             $_SESSION["shopCart"] = $cart;
         }
 

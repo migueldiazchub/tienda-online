@@ -50,7 +50,7 @@
             $index = 0;
             foreach($shoppingCart as $item){
               echo 
-                '<article class="inventory-item">
+                '<a class="inventory-item" href="./articulo.php?itemId=' . $item["id"] . '">
                     <img
                         src=' . $item["imageSource"] . '
                         class="inventory-item-image"
@@ -67,13 +67,17 @@
                             <input type="submit" value="Eliminar del carrito">
                         </form>
                     </div>
-                </article>';
+                </a>';
             }
         ?>
       </ul>
-      <form id="purchase-control">
-        <button type="submit">Confirmar compra</button>
-        <button type="submit">Cancelar</button>
+      <form id="purchase-confirm" action="../lib/shopcart-management.php" method="post">
+        <input name="cartAction" type="hidden" value="requestPurchase">
+        <input type="submit" value="Confirmar compra">
+      </form>
+      <form id="purchase-cancel" action="../lib/shopcart-management.php" method="post">
+        <input name="cartAction" type="hidden" value="cancelPurchase">
+        <input type="submit" value="Cancelar">
       </form>
     </main>
 </body>

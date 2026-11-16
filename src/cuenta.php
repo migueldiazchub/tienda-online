@@ -1,5 +1,9 @@
 <?php
+  require "../lib/db.php";
   include "../lib/session-control.php";
+
+  $userIdString = (string) $_SESSION["userId"];
+  $purchaseHistory = getUserPurchases($userIdString);
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +45,39 @@
         echo $_SESSION["userId"] , "<br>";
         echo $_SESSION["username"];
     ?>
+    <ul id=purchase-history>
+        <?php
+            foreach($purchaseHistory as $purchase){
+              $state = "";
+              if($purchase->state == "pending"){
+                $state = "Pendiente";
+              } elseif($purchase->state == "confirmed"){
+                $state = "Confirmada";
+              } elseif($purchase->state == "rejected"){
+                $state = "Rechazada";
+              }
+              $itemList = "";
+              foreach($purchase->items as $item){
+                      $itemData = getItemById($item->item_id);
+                      $itemList = $itemList .
+                        '<li>
+                          <p><b>Artículo: </b>' . $itemData->name . '</p>
+                          <p><b>Cantidad: </b>' . $item->quantity . '</p>
+                        </li>';
+                    }
+
+              echo 
+                '<article class="pending-purchase">
+                  <p><b>Estado: </b>' . $state . '</p>
+                  <time><b>Fecha: </b>' . $purchase->dateRequested . '</time>
+                  <ul>' . 
+                    $itemList
+                  . '</ul>
+                  <p><b>Precio total: </b>€</p>
+                </article>';
+            }
+        ?>        
+    </ul>
     <form id="logout" action="/lib/session-control.php" method="post">
       <input name="logout" type="hidden" value="true">
       <input type="submit" value="logout">
