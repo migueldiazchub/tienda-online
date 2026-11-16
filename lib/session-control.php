@@ -25,17 +25,17 @@
     $navLoginHref = "/src/login.php";
     $navLoginContent = "Iniciar sesión";
     
-    $navClientClass = "hidden";
+    $navCart = "hidden";
     $navAdminClass = "hidden";
 
     if($loggedIn){
       $navLoginHref = "/src/cuenta.php";
       $navLoginContent = $_SESSION["username"];
 
+      $navCart = "nav-link";
+
       if($isAdmin){
         $navAdminClass = "nav-link";
-      } else {
-        $navClientClass = "nav-link";
       }
     }
 ?>
