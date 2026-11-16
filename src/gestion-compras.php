@@ -68,7 +68,7 @@
                       }
 
                 echo 
-                  '<article id=' . $purchase->_id . ' class="pending-purchase">
+                  '<article id=' . $purchase->_id . ' class="purchase-made pending-purchase">
                     <section class="purchase-info">
                       <p><b>Usuario: </b>' . $userData->username . '</p>
                       <time><b>Fecha: </b>' . $purchase->dateRequested . '</time>
@@ -115,7 +115,7 @@
                       }
 
                 echo 
-                  '<article class="purchase-info">
+                  '<article class="purchase-made">
                     <p><b>Usuario: </b>' . $userData->username . '</p>
                     <time><b>Fecha de petición: </b>' . $purchase->dateRequested . '</time>
                     |

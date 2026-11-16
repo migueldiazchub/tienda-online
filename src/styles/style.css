@@ -549,6 +549,13 @@ main {
   font-size: x-large;
 }
 
+.purchase-made {
+  padding: 1rem;
+
+  border: var(--border-standard);
+  border-radius: var(--rounded);
+}
+
 .pending-purchase {
   display: flex;
   justify-content: space-between;
